@@ -9,10 +9,27 @@ levels = {
 }
 
 
-def debug(fileName, stepByStep=False):
+def debug(fileName, stepByStep=True, intraFrame=True):
+    test(fileName, True,  stepByStep, intraFrame)
+
+
+def test(fileName, debug=False, stepByStep=False, intraFrame=False):
     maze_str = parseLevelTextFile(fileName)
     game = Game(maze_str)
-    game.startGame(True, stepByStep)
+    isWon, isDead, isTimeout, score, frame = game.startGame(debug, stepByStep, intraFrame)
+    if isWon:
+        s = "OK"
+    elif isDead:
+        s = "KO"
+    elif isTimeout:
+        s = "Timeout"
+    else:
+        s = "?"
+    print(s, "\t", "Score:", score)
+
+    if not stepByStep and (isDead or isTimeout):
+        game.printLevelCamera()
+    return isWon, isDead, isTimeout, score, frame
 
 
 def testAll():
@@ -24,20 +41,7 @@ def testAll():
             total += 1
             fileTested = "{}/{}".format(folder, level_file)
             print("Testing:", fileTested)
-            level_str = parseLevelTextFile(fileTested)
-            game = Game(level_str)
-            isWon, isDead, isTimeout, score, frame = game.startGame()
+            isWon, isDead, isTimeout, score, frame = test(fileTested, False, False, False)
             if isWon:
                 success += 1
-                s = "OK"
-            elif isDead:
-                s = "KO"
-            elif isTimeout:
-                s = "Timeout"
-            else:
-                s = "?"
-            print("\t", s, "Score:", score)
-
-            if isDead or isTimeout:
-                game.printLevelCamera()
             print()

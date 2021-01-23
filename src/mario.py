@@ -49,6 +49,8 @@ class Mario:
         self._coin = False
         self._direction: DIRECTION = DIRECTION(DIRECTION.right)
 
+        self.intraFrame = False
+
     def getX(self):
         return self._x
 
@@ -68,7 +70,7 @@ class Mario:
         return self._coin
 
     # Actions #
-    def _applyMovesIfPossible(self, moves):
+    def _applyMovesIfPossible(self, moves, actionName=""):
         if self._dead:
             return
 
@@ -84,24 +86,29 @@ class Mario:
                 self._checkIfCoin()
                 self._checkIfWon()
                 self._checkIfDead()
+
+                if self.intraFrame:
+                    print("Action: {} \t\t Subframe {}".format(actionName, indMove+1))
+                    self._level.printLevelCamera()
             else:
                 # Note that the move could be partially applied, this is intentional
                 canMove = False
-
             indMove += 1
         if direction != DIRECTION(DIRECTION.down) or canMove:
             self.applyGravity()
 
     def moveForward(self):
-        self._applyMovesIfPossible([self._direction])
+        self._applyMovesIfPossible([self._direction], "move forward")
 
     def jump(self):
         self._applyMovesIfPossible([
             DIRECTION(DIRECTION.up),
             self._direction,
             DIRECTION(DIRECTION.up),
-            self._direction
-        ])
+            self._direction,
+        ],
+            "jump"
+        )
 
     def highJump(self):
         self._applyMovesIfPossible([
@@ -109,7 +116,9 @@ class Mario:
             DIRECTION(DIRECTION.up),
             DIRECTION(DIRECTION.up),
             self._direction
-        ])
+        ],
+            "highJump"
+        )
 
     def longJump(self):
         self._applyMovesIfPossible([
@@ -117,13 +126,17 @@ class Mario:
             DIRECTION(DIRECTION.up),
             self._direction,
             self._direction,
-        ])
+        ],
+            "longJump"
+        )
 
     def sprint(self):
         self._applyMovesIfPossible([
             self._direction,
             self._direction
-        ])
+        ],
+            "sprint"
+        )
 
     def turnAround(self):
         if self._direction == DIRECTION(DIRECTION.right):
@@ -133,7 +146,7 @@ class Mario:
 
     # Other #
     def applyGravity(self):
-        self._applyMovesIfPossible([DIRECTION(DIRECTION.down)])
+        self._applyMovesIfPossible([DIRECTION(DIRECTION.down)], "gravity")
 
     def _checkIfDead(self):
         if not self._dead:
