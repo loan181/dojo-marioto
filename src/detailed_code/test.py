@@ -1,5 +1,5 @@
-from game import Game
-from level import parseLevelTextFile
+from detailed_code.game import Game
+from detailed_code.level import parseLevelTextFile
 
 levels = {
     "tuto": ["tuto1", "tuto2"],

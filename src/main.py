@@ -1,4 +1,4 @@
-from test import *
+from detailed_code.test import *
 
 if __name__ == '__main__':
     testAll()

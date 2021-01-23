@@ -1,5 +1,5 @@
-from tile import TILE
-from mario import Mario
+from detailed_code.tile import TILE
+from detailed_code.mario import Mario
 
 def parseLevelTextFile(fileName):
     levelStr = []

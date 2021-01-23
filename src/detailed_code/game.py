@@ -1,6 +1,6 @@
-from level import Level
+from detailed_code.level import Level
 from ia import step
-from mario import Mario
+from detailed_code.mario import Mario
 
 
 class Game:
@@ -43,7 +43,7 @@ class Game:
         return self._player.isWon(), self._player.isDead(), isTimeout, score, self._frame
 
     def printLevelCamera(self):
-        print("Frame: {} \t\t Pénalité de mouvement: {}".format(self._frame, self._penality))
+        print("Frame: {} \t Pénalité de mouvement: {}".format(self._frame, self._penality))
         self._level.printLevelCamera()
         print()
 
