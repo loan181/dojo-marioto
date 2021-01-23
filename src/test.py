@@ -5,7 +5,8 @@ levels = {
     "tuto": ["tuto1", "tuto2"],
     "test":
         ["easy{}".format(i) for i in range(1, 6)] +
-        ["medium{}".format(i) for i in range(1, 5)]
+        ["medium{}".format(i) for i in range(1, 5)] +
+        ["hard{}".format(i) for i in range(1, 6)]
 }
 
 
