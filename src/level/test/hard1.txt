@@ -1,0 +1,4 @@
+.C.......
+...X...X.
+..XXX.XX.
+XXXXX.XXX
